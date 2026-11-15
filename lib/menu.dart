@@ -9,9 +9,21 @@ class MyHomePage extends StatelessWidget {
   static const String kelas = 'PBP C';
 
   static const List<ItemHomepage> items = [
-    ItemHomepage('See Projects', Icons.folder_open),
-    ItemHomepage('Add Project', Icons.add),
-    ItemHomepage('Logout', Icons.logout),
+    ItemHomepage(
+      name: 'Lihat Proyek',
+      icon: Icons.folder_open_rounded,
+      color: Color(0xFF1D4ED8),
+    ),
+    ItemHomepage(
+      name: 'Tambah Proyek',
+      icon: Icons.add_circle_outline_rounded,
+      color: Color(0xFF15803D),
+    ),
+    ItemHomepage(
+      name: 'Logout',
+      icon: Icons.logout_rounded,
+      color: Color(0xFFB91C1C),
+    ),
   ];
 
   @override
@@ -92,7 +104,15 @@ class InfoCard extends StatelessWidget {
           children: [
             Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text(content, maxLines: 1, overflow: TextOverflow.ellipsis),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                content,
+                maxLines: 1,
+                style: Theme.of(context).textTheme.bodyMedium
+                    ?.copyWith(fontWeight: FontWeight.w600),
+              ),
+            ),
           ],
         ),
       ),
@@ -101,10 +121,15 @@ class InfoCard extends StatelessWidget {
 }
 
 class ItemHomepage {
-  const ItemHomepage(this.name, this.icon);
+  const ItemHomepage({
+    required this.name,
+    required this.icon,
+    required this.color,
+  });
 
   final String name;
   final IconData icon;
+  final Color color;
 }
 
 class ItemCard extends StatelessWidget {
@@ -114,13 +139,11 @@ class ItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return Material(
-      color: colorScheme.primary,
-      borderRadius: BorderRadius.circular(12),
+      color: item.color,
+      borderRadius: BorderRadius.circular(16),
       child: InkWell(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         onTap: () {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -136,12 +159,16 @@ class ItemCard extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(item.icon, color: colorScheme.onPrimary, size: 30),
+                Icon(item.icon, color: Colors.white, size: 30),
                 const SizedBox(height: 6),
                 Text(
                   item.name,
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: colorScheme.onPrimary),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13,
+                  ),
                 ),
               ],
             ),
