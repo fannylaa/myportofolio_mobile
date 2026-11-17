@@ -1,6 +1,6 @@
 # Portfolio Pribadi
 
-Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan proyek Tutorial 08. Halaman utamanya menampilkan informasi mahasiswa dan tiga kartu aksi: **Lihat Proyek**, **Tambah Proyek**, dan **Logout**. Setiap kartu memiliki warna dan ikon sendiri, lalu menampilkan `SnackBar` saat ditekan.
+Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan proyek Tutorial 08. Halaman utama menampilkan informasi mahasiswa, tiga kartu aksi, dan drawer untuk berpindah halaman. **Tambah Proyek** membuka formulir dengan validasi dan dialog ringkasan; **Lihat Proyek** dan **Logout** masih menampilkan `SnackBar`. Data proyek belum disimpan ke database, sesuai cakupan Tutorial 09.
 
 ## Menjalankan aplikasi
 
@@ -40,10 +40,18 @@ flutter analyze
 
 6. **Hot reload** memasukkan perubahan kode Dart dan membangun ulang UI sambil mempertahankan state aplikasi; proses ini tidak menjalankan ulang `main()` atau `initState()`. **Hot restart** menjalankan ulang aplikasi Flutter dari `main()` sehingga state aplikasi direset. **Full restart** menghentikan dan menjalankan kembali aplikasi beserta proses platform-nya. Hot reload biasanya cukup untuk perubahan tampilan atau logika Dart. Gunakan hot restart saat perubahan pada `main()` atau nilai inisialisasi global/static perlu diterapkan. Gunakan full restart setelah perubahan kode native Android/iOS atau konfigurasi platform yang memerlukan kompilasi ulang. [Dokumentasi hot reload Flutter](https://docs.flutter.dev/tools/hot-reload).
 
+### Tugas 9
+
+- `lib/screens/menu.dart` berisi halaman utama dan kartu aksi.
+- `lib/screens/project_form.dart` berisi formulir proyek. Nama dan deskripsi wajib diisi; kategori memiliki pilihan bawaan; teknologi dan tautan bersifat opsional.
+- `lib/widgets/left_drawer.dart` menyediakan navigasi Home dan Add Project. Drawer tersedia di halaman utama maupun formulir.
+- `lib/widgets/project_card.dart` menangani tampilan kartu dan navigasi dari **Tambah Proyek** ke formulir.
+- Menekan **Save** menampilkan ringkasan proyek. Tombol **OK** menutup dialog dan mengosongkan formulir.
+
 ## Penggunaan AI
 
 - **Alat:** OpenAI Codex.
-- **Log prompt (ringkas):** memberikan brief `tugas-7.pdf` dan meminta implementasi Tugas 7 dilanjutkan di repositori Flutter yang sudah ada, termasuk jawaban reflektif di README.
-- **Bagian yang dibantu AI:** penambahan warna dan ikon berbeda untuk setiap `ItemHomepage`, penyesuaian tampilan kartu profil pada layar sempit, serta penyusunan draf jawaban enam pertanyaan reflektif dan dokumentasi proyek.
-- **Pemeriksaan:** kode diperiksa dengan `flutter analyze`. Jawaban refleksi perlu saya baca ulang dan sesuaikan dengan pemahaman serta pengalaman praktik saya sebelum dikumpulkan.
+- **Log prompt (ringkas):** memberikan brief `tugas-7.pdf` untuk pengembangan awal dan `tutorial-9.pdf` untuk menambahkan navigasi, drawer, formulir proyek, serta refactoring pada repositori Flutter yang sama.
+- **Bagian yang dibantu AI:** penambahan warna dan ikon berbeda untuk setiap `ItemHomepage`, penyesuaian tampilan kartu profil pada layar sempit, implementasi drawer dan navigasi, formulir proyek dengan validasi dan dialog ringkasan, refactoring struktur file, serta dokumentasi proyek.
+- **Pemeriksaan:** `dart analyze .` menampilkan `No issues found!`. Alur antarmuka tetap perlu saya coba di emulator/perangkat sebelum dikumpulkan. Jawaban refleksi juga perlu saya sesuaikan dengan pemahaman sendiri.
 - **Batasan:** penjelasan AI dapat terlalu umum; terutama uraian pengalaman praktik, saya perlu memastikan sendiri bahwa isinya sesuai dengan apa yang benar-benar saya kerjakan dan pahami.
