@@ -1,6 +1,6 @@
 # Portfolio Pribadi
 
-Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan proyek Tutorial 08. Halaman utama menampilkan informasi mahasiswa, tiga kartu aksi, dan drawer untuk berpindah halaman. **Tambah Proyek** membuka formulir dengan validasi dan dialog ringkasan; **Lihat Proyek** dan **Logout** masih menampilkan `SnackBar`. Data proyek belum disimpan ke database, sesuai cakupan Tutorial 09.
+Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan proyek Tutorial 08. Halaman utama menampilkan informasi mahasiswa, empat kartu aksi, dan drawer untuk berpindah halaman. **Tambah Proyek** dan **Tambah Pendidikan** membuka formulir dengan validasi dan dialog ringkasan. **Lihat Proyek** dan **Logout** masih menampilkan `SnackBar`. Data formulir belum disimpan ke database.
 
 ## Menjalankan aplikasi
 
@@ -40,7 +40,7 @@ flutter analyze
 
 6. **Hot reload** memasukkan perubahan kode Dart dan membangun ulang UI sambil mempertahankan state aplikasi; proses ini tidak menjalankan ulang `main()` atau `initState()`. **Hot restart** menjalankan ulang aplikasi Flutter dari `main()` sehingga state aplikasi direset. **Full restart** menghentikan dan menjalankan kembali aplikasi beserta proses platform-nya. Hot reload biasanya cukup untuk perubahan tampilan atau logika Dart. Gunakan hot restart saat perubahan pada `main()` atau nilai inisialisasi global/static perlu diterapkan. Gunakan full restart setelah perubahan kode native Android/iOS atau konfigurasi platform yang memerlukan kompilasi ulang. [Dokumentasi hot reload Flutter](https://docs.flutter.dev/tools/hot-reload).
 
-### Tugas 9
+### Tutorial 09
 
 - `lib/screens/menu.dart` berisi halaman utama dan kartu aksi.
 - `lib/screens/project_form.dart` berisi formulir proyek. Nama dan deskripsi wajib diisi; kategori memiliki pilihan bawaan; teknologi dan tautan bersifat opsional.
@@ -48,10 +48,22 @@ flutter analyze
 - `lib/widgets/project_card.dart` menangani tampilan kartu dan navigasi dari **Tambah Proyek** ke formulir.
 - Menekan **Save** menampilkan ringkasan proyek. Tombol **OK** menutup dialog dan mengosongkan formulir.
 
+### Tugas 8
+
+1. `Navigator.push()` menambahkan halaman baru ke atas navigation stack sehingga halaman sebelumnya masih bisa dibuka dengan tombol kembali. `Navigator.pushReplacement()` mengganti halaman teratas dan menghapus halaman sebelumnya dari stack, sedangkan `Navigator.pop()` menutup halaman teratas. Kartu **Tambah Pendidikan** menggunakan `Navigator.push()`. Opsi **Home** di drawer menggunakan `Navigator.pushReplacement()` untuk membuka halaman utama, termasuk saat formulir pendidikan sedang terbuka.
+
+2. `Scaffold` memberi struktur halaman yang konsisten untuk `AppBar`, `Drawer`, dan isi. Drawer yang sama dipakai di halaman utama dan kedua formulir. Warna `colorScheme.primary` dari tema aplikasi dipakai pada `AppBar` dan tombol simpan, sehingga elemen tersebut konsisten di beberapa halaman.
+
+3. Formulir disusun dalam `Column` dengan `SizedBox` untuk memberi jarak antarinput. `SingleChildScrollView` membuat seluruh kolom dan tombol **Simpan** tetap dapat dijangkau saat ruang layar terbatas atau papan ketik tampil.
+
+4. `GlobalKey<FormState>` menyediakan akses ke state `Form`. Setiap `validator` memeriksa nilai pada kolomnya, lalu `validate()` menjalankan semua validator ketika **Simpan** ditekan. Contohnya, nama institusi yang hanya berisi spasi ditolak. Pemilihan papan ketik saja tidak cukup untuk menolak masukan kosong atau memastikan tanggal selesai tidak mendahului tanggal mulai.
+
+Halaman Pendidikan menggunakan lima input: institusi, gelar, program studi, tanggal mulai, dan tanggal selesai. Tanggal dipilih melalui `showDatePicker()`. Isian ringkasan hanya ditampilkan setelah seluruh validasi berhasil.
+
 ## Penggunaan AI
 
 - **Alat:** OpenAI Codex.
-- **Log prompt (ringkas):** memberikan brief `tugas-7.pdf` untuk pengembangan awal dan `tutorial-9.pdf` untuk menambahkan navigasi, drawer, formulir proyek, serta refactoring pada repositori Flutter yang sama.
-- **Bagian yang dibantu AI:** penambahan warna dan ikon berbeda untuk setiap `ItemHomepage`, penyesuaian tampilan kartu profil pada layar sempit, implementasi drawer dan navigasi, formulir proyek dengan validasi dan dialog ringkasan, refactoring struktur file, serta dokumentasi proyek.
-- **Pemeriksaan:** `dart analyze .` menampilkan `No issues found!`. Alur antarmuka tetap perlu saya coba di emulator/perangkat sebelum dikumpulkan. Jawaban refleksi juga perlu saya sesuaikan dengan pemahaman sendiri.
-- **Batasan:** penjelasan AI dapat terlalu umum; terutama uraian pengalaman praktik, saya perlu memastikan sendiri bahwa isinya sesuai dengan apa yang benar-benar saya kerjakan dan pahami.
+- **Log prompt (ringkas):** Codex diminta menerapkan checklist `tugas-8.pdf` pada proyek Flutter yang sudah berisi hasil Tugas 7 dan Tutorial 09, dengan membuat formulir Pendidikan dan mempertahankan halaman serta navigasi yang sudah ada.
+- **Bagian yang dibantu AI:** pembacaan brief, penambahan kartu Pendidikan dan opsi drawer, formulir tanggal dengan validasi dan dialog ringkasan, penyesuaian warna tema dan kisi kartu untuk layar sempit, serta draf jawaban reflektif Tugas 8.
+- **Pemeriksaan:** `flutter analyze` dan `dart analyze lib` dicoba setelah perubahan, tetapi keduanya macet tanpa keluaran di lingkungan ini sehingga hasilnya belum terkonfirmasi. Alur antarmuka juga perlu dicoba di emulator/perangkat sebelum dikumpulkan.
+- **Batasan dan tinjauan:** AI dapat melewatkan detail aturan tugas atau memberi penjelasan yang terlalu umum. Saya perlu meninjau kode, mencoba alur formulir, dan memastikan jawaban reflektif menggambarkan pekerjaan yang benar-benar saya pahami.
