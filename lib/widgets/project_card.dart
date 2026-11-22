@@ -1,4 +1,5 @@
 import 'package:material_ui/material_ui.dart';
+import 'package:portfolio/screens/education_form.dart';
 import 'package:portfolio/screens/menu.dart';
 import 'package:portfolio/screens/project_form.dart';
 
@@ -28,6 +29,13 @@ class ItemCard extends StatelessWidget {
               context,
               MaterialPageRoute<void>(
                 builder: (context) => const ProjectFormPage(),
+              ),
+            );
+          } else if (item.name == 'Tambah Pendidikan') {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (context) => const EducationFormPage(),
               ),
             );
           }

@@ -22,6 +22,11 @@ class MyHomePage extends StatelessWidget {
       color: Color(0xFF15803D),
     ),
     ItemHomepage(
+      name: 'Tambah Pendidikan',
+      icon: Icons.school_outlined,
+      color: Color(0xFF7C3AED),
+    ),
+    ItemHomepage(
       name: 'Logout',
       icon: Icons.logout_rounded,
       color: Color(0xFFB91C1C),
@@ -75,10 +80,15 @@ class MyHomePage extends StatelessWidget {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(12),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: MediaQuery.sizeOf(context).width >= 900
+                      ? 4
+                      : MediaQuery.sizeOf(context).width >= 600
+                      ? 3
+                      : 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
+                  childAspectRatio: 1.15,
                 ),
                 itemCount: items.length,
                 itemBuilder: (context, index) => ItemCard(item: items[index]),
