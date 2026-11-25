@@ -33,7 +33,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
   Future<void> _selectDate({required bool isStartDate}) async {
     final currentDate = isStartDate ? _startDate : _endDate;
     final startDate = _startDate;
-    var initialDate = currentDate ??
+    var initialDate =
+        currentDate ??
         (isStartDate ? DateTime.now() : startDate ?? DateTime.now());
     if (!isStartDate && startDate != null && initialDate.isBefore(startDate)) {
       initialDate = startDate;
@@ -90,9 +91,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
 
   Widget _buildDateField({required bool isStartDate}) {
     final label = isStartDate ? 'Tanggal mulai' : 'Tanggal selesai';
-    final controller = isStartDate
-        ? _startDateController
-        : _endDateController;
+    final controller = isStartDate ? _startDateController : _endDateController;
 
     return TextFormField(
       controller: controller,
