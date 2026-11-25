@@ -1,6 +1,6 @@
 # Portfolio Pribadi
 
-Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan proyek Tutorial 08. Halaman utama menampilkan informasi mahasiswa, empat kartu aksi, dan drawer untuk berpindah halaman. **Tambah Proyek** dan **Tambah Pendidikan** membuka formulir dengan validasi dan dialog ringkasan. **Lihat Proyek** dan **Logout** masih menampilkan `SnackBar`. Data formulir belum disimpan ke database.
+Aplikasi portofolio pribadi berbasis Flutter yang melanjutkan Tutorial 08 dan Tutorial 09. Proyek ini terhubung ke backend Django REST Framework dari Tutorial 07 melalui token API. Pengguna dapat melihat daftar proyek, membuka detail, login, menambahkan proyek, dan logout. Formulir Pendidikan yang sudah ada tetap tersedia.
 
 ## Menjalankan aplikasi
 
@@ -8,8 +8,19 @@ Pastikan Flutter SDK sudah terpasang, lalu jalankan perintah berikut dari folder
 
 ```powershell
 flutter pub get
+dart run build_runner build
 flutter run
 ```
+
+Android Emulator menggunakan `http://10.0.2.2:8000` secara default. Untuk Flutter Web, jalankan dengan URL backend lokal:
+
+```powershell
+flutter run -d chrome --dart-define=API_BASE_URL=http://localhost:8000
+```
+
+Endpoint yang digunakan adalah `GET` dan `POST /api/v1/projects/`, `POST /api/v1/auth/token/`, serta `POST /api/v1/auth/logout/`. Backend perlu mengaktifkan TokenAuthentication, CORS untuk Flutter Web, dan mengizinkan host emulator seperti dijelaskan di Tutorial 10. Izin cleartext Android di manifest ini ditujukan untuk pengembangan lokal; backend produksi sebaiknya memakai HTTPS.
+
+Workflow `.github/workflows/ci.yml` menjalankan build dan analisis Flutter, menghasilkan serializer JSON, membangun APK release setelah job build berhasil, lalu menyimpan APK sebagai artefak `app-release-apk`. Isi GitHub Actions repository variable `API_BASE_URL` dengan alamat backend HTTPS jika APK CI harus menunjuk ke backend deploy. Jika kosong, build memakai alamat emulator lokal dari Tutorial 10.
 
 Untuk memeriksa kode, jalankan:
 
@@ -63,7 +74,7 @@ Halaman Pendidikan menggunakan lima input: institusi, gelar, program studi, tang
 ## Penggunaan AI
 
 - **Alat:** OpenAI Codex.
-- **Log prompt (ringkas):** Codex diminta menerapkan checklist `tugas-8.pdf` pada proyek Flutter yang sudah berisi hasil Tugas 7 dan Tutorial 09, dengan membuat formulir Pendidikan dan mempertahankan halaman serta navigasi yang sudah ada.
-- **Bagian yang dibantu AI:** pembacaan brief, penambahan kartu Pendidikan dan opsi drawer, formulir tanggal dengan validasi dan dialog ringkasan, penyesuaian warna tema dan kisi kartu untuk layar sempit, serta draf jawaban reflektif Tugas 8.
-- **Pemeriksaan:** `flutter analyze` dan `dart analyze lib` dicoba setelah perubahan, tetapi keduanya macet tanpa keluaran di lingkungan ini sehingga hasilnya belum terkonfirmasi. Alur antarmuka juga perlu dicoba di emulator/perangkat sebelum dikumpulkan.
-- **Batasan dan tinjauan:** AI dapat melewatkan detail aturan tugas atau memberi penjelasan yang terlalu umum. Saya perlu meninjau kode, mencoba alur formulir, dan memastikan jawaban reflektif menggambarkan pekerjaan yang benar-benar saya pahami.
+- **Log prompt (ringkas):** Codex diminta membaca `tutorial-10.pdf` dan menerapkan bagian yang sesuai pada proyek Flutter ini.
+- **Bagian yang dibantu AI:** integrasi API Django REST Framework, model dan serialisasi JSON, daftar serta detail proyek, login/logout token, validasi dan pengiriman formulir proyek, serta workflow CI untuk membangun APK.
+- **Pemeriksaan:** `dart format lib`, code generation dengan `build_runner`, dan `dart analyze lib` berhasil; analyzer melaporkan tidak ada isu. Test suite dan alur end-to-end dengan backend belum dijalankan.
+- **Batasan dan tinjauan:** backend Django tidak berada di workspace ini. Endpoint, autentikasi, dan permintaan jaringan perlu dicoba bersama backend yang sudah dikonfigurasi sesuai Tutorial 10.
